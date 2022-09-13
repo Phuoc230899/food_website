@@ -11,4 +11,5 @@ tasks = [
     loop.create_task(sum("B",[4,5,6]))
 ]
 loop.run_until_complete(asyncio.wait(tasks))
-#loop.close()
+loop.close()
+print('Xin chào bản test git')
