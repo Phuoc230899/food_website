@@ -217,7 +217,7 @@
                             {% for product in cart %}
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <img src={{product['image_path']}} width="100%">
+                                        <img src={{product['image_link']}} width="100%">
                                     </div>
                                     <div class="col-xs-5">
                                         <span>{{product['product_name']}}</span><br/>
@@ -308,15 +308,15 @@
                     {% for product in cart %}
                         <div class="row">
                             <div class="col-xs-3">
-                                <img src={{product['image_path']}} width="100%">
+                                <img src={{product['image_link']}} width="100%">
                             </div>
                             <div class="col-xs-5">
                                 <span>{{product['product_name']}}</span><br/>
                             </div>
                             <div class="col-xs-4">
-                                <p class="text-right">{{product['price']}} VND</p>
-                                {% set _ = total.append(total.pop() + product["price"]|int) %}
+                                <p class="text-right">{{product['quantity']}}x{{product['price']}} VND</p>
                             </div>
+                            {% set _ = total.append(total.pop() + product["price"]|int*product["quantity"]|int) %}
                         </div>
                     {%endfor%}
 
@@ -335,19 +335,19 @@
 
                     <div class="row">
                         <div class="col-sm-8">Subtotal</div>
-                        <div class="col-sm-4 text-right">{{total[0]}}.000 VND</div>
+                        <div class="col-sm-4 text-right">{{total[0]}} VND</div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-8 less">Shipping + Transaction Fee</div>
-                        <div class="col-sm-4 text-right">30.000 VND</div>
+                        <div class="col-sm-4 text-right">30000 VND</div>
                     </div>
 
 
                     <hr/>
                     <div class="row">
                         <div class="col-sm-4 less">Total</div>
-                        <div class="col-sm-8 text-right"><h3 class="less-margin"><small></small> {{total[0]+30}}.000 VND</h3></div>
+                        <div class="col-sm-8 text-right"><h3 class="less-margin"><small></small> {{total[0]+30000}} VND</h3></div>
                     </div>
                 </div>
                 <div class="clearfix"></div>

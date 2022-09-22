@@ -324,11 +324,11 @@
                         {% for product in cart%}
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <p>1 x Brownies Chocolate</p>
+                                    <p>1 x {{product['product_name']}}</p>
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <p>IDR 50.000</p>
+                                    <p>{{product['price']}} VND</p>
                                 </div>
                             </div>
                         {%endfor%}
@@ -375,7 +375,7 @@
                     </div>
                 </div>
 
-                <a href="index.html" class="btn btn-default pull-right button-black">Back to Homepage</a>
+                <a href="./homepage" class="btn btn-default pull-right button-black">Back to Homepage</a>
                 <div class="clearfix maya-small-padding"></div>
 
             </div>

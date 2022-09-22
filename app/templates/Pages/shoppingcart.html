@@ -146,12 +146,12 @@
                                     {%for prod in cart%}
                                     <div class="row">
                                         <div class="col-sm-2 col-xs-3 less-padding">
-                                            <img src={{prod["image_path"]}} width="100%">
+                                            <img src={{prod["image_link"]}} width="100%">
                                         </div>
                                         <div class="col-sm-8 col-xs-9">
                                             <span class="text-gray-1">{{prod["product_name"]}}</span>
-                                            <p class="text-gray-2">1 x {{prod["price"]}}</p>
-                                            {% set _ = total.append(total.pop() + prod["price"]|int) %}
+                                            <p class="text-gray-2">{{prod["quantity"]}} x {{prod["price"]}}</p>
+                                            {% set _ = total.append(total.pop() + prod["price"]|int*prod["quantity"]|int) %}
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -159,7 +159,7 @@
 
                                     <div class="row">
 
-                                        <div class="col-sm-6 col-xs-6 less-padding"><h4><small>Total</small><br><span>{{total[0]}}.000 VND</span></h4></div>
+                                        <div class="col-sm-6 col-xs-6 less-padding"><h4><small>Total</small><br><span>{{total[0]}} VND</span></h4></div>
                                         <div class="col-sm-6 col-xs-6 less-padding">
                                             <a href="./shoppingcart" class="button-green-top-nav btn pull-right btn-block text-oswald text-uppercase">View Cart</a>
                                         </div>
@@ -203,44 +203,50 @@
 
         <div class="row">
             <div class="col-md-8">
-                <div class="box-bg-white col-md-12">
-                    <h3 class="section-title">Shopping Cart</h3>
-                    {% for product in cart%}
-                    <div class="row">
-                        <div class="col-md-2 col-xs-6 less-padding-right">
-                            <img src={{product["image_path"]}} width="100%">
-                        </div>
-                        <div class="col-md-5 col-xs-12">
-                            <span>{{product["product_name"]}}</span><br/>
-                            <!-- <p class="text-gray-3 text-thin">Sucicakes</p> -->
-                            <p class="section-title">{{product["price"]}} VND</p>
-                            <a class="btn btn-default outline-default-button outline-small-default-button" href="./delete/{{product["product_name"]}}">Remove</a>
-                        </div>
-
-                        <div class="col-md-3 col-xs-7">
-                            <p>Quantity</p>
-                            <form class="form-inline">
-
-                                <div class="form-group pull-left">
-                                    <input type="number" class="form-control number-input" id="" placeholder="1" style="width: 60px;">
+                <form action="/shoppingcart" method="post">
+                    <div class="box-bg-white col-md-12">
+                        <h3 class="section-title">Shopping Cart</h3>
+                        {% for product in cart%}                       
+                            <div class="row">
+                                <div class="col-md-2 col-xs-6 less-padding-right">
+                                    <img src={{product["image_link"]}} width="100%">
+                                </div>
+                                <div class="col-md-5 col-xs-12">
+                                    <span id="product_name" name = "product_name">{{product["product_name"]}}</span><br/>
+                                    <!-- <p class="text-gray-3 text-thin">Sucicakes</p> -->
+                                    <p class="section-title">{{product["price"]}} VND</p>
+                                    <a class="btn btn-default outline-default-button outline-small-default-button" href="./delete/{{product["product_name"]}}">Remove</a>
                                 </div>
 
-                            </form>
-                        </div>
-                        <div class="col-md-2 col-xs-5">
-                            <p class="text-right">Subtotal</p>
-                            <p class="text-right section-title">{{product["price"]}} VND</p>
-                        </div>
+                                <div class="col-md-3 col-xs-7">
+                                    <p>Quantity</p>
+                                    <!-- <form class="form-inline"> -->
+
+                                        <div class="form-group pull-left">
+                                            <input type="number" class="form-control number-input" id="product_quantity" name="product_quantity" placeholder="1" max="99" min="0" value="{{product["quantity"]}}" style="width: 60px;">
+                                        </div>
+
+                                    <!-- </form> -->
+                                </div>
+                                <div class="col-md-2 col-xs-5">
+                                    <p class="text-right">Subtotal</p>
+                                    <p class="text-right section-title" id="subtotal" name="subtotal">{{product["price"]*product["quantity"]}} VND</p>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            
+                        
+                        
+                        {%endfor%}
+
+
                     </div>
-                    
-                    <hr>
-                    {%endfor%}
 
-
-                </div>
-
-                <a href="./checkout1" class="btn btn-default pull-right button-black">Continue to checkout</a>
-                <div class="clearfix maya-small-padding"></div>
+                    <button  class="btn btn-default pull-right button-black">Continue to checkout</button>
+                    <div class="clearfix maya-small-padding"></div>
+                </form>
+                
             </div>
 
             <div class="col-md-4">

@@ -15,7 +15,7 @@ def login():
         check = db.check_login(email,password)
         if check == True:
             session['user_id'] = db.get_user_id(email)
-            return redirect(url_for("index_module.index"))
+            return redirect(url_for("cart_module.cart"))
         else:
             error = "Invalid Email or Password"
     return render_template("Pages/login.html",error= error)

@@ -1,15 +1,13 @@
-import asyncio
+cart_list = [{'product_name': 'Moesli', 'quantity': '1'},{'product_name': 'oat cake', 'quantity': '2'},{'product_name': 'Mango Cake', 'quantity': '1'}]
 
-async def sum(name,arr):
-    for number in arr :
-        print(name+" "+str(number))
-        await asyncio.sleep(1)
+c = {'product_name': 'Moesli', 'quantity': '2'}
 
-loop = asyncio.get_event_loop()
-tasks = [
-    loop.create_task(sum("A",[1,2,3])),
-    loop.create_task(sum("B",[4,5,6]))
-]
-loop.run_until_complete(asyncio.wait(tasks))
-loop.close()
-print('Xin chào bản test git')
+list_of_all_values = [value for elem in cart_list
+                      for value in elem.values()]
+if c['product_name'] not in list_of_all_values:
+    cart_list.append(c)
+else:
+    cart_list = [i for i in cart_list if not (i['product_name'] == c['product_name'])]
+    cart_list.append(c)
+
+print(cart_list)

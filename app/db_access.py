@@ -13,8 +13,8 @@ class DataAccountAccess:
             conn = psycopg2.connect(
                 host="localhost",
                 database="FoodDB",
-                user="root",
-                password="tpos123",
+                user="postgres",
+                password="123456",
             )
             # create a cursor
             cur = conn.cursor()
@@ -99,8 +99,8 @@ class DataProductAccess:
             conn = psycopg2.connect(
                 host="localhost",
                 database="FoodDB",
-                user="root",
-                password="tpos123",
+                user="postgres",
+                password="123456",
             )
             # create a cursor
             cur = conn.cursor()
@@ -119,18 +119,6 @@ class DataProductAccess:
         except Exception as e:
             print("Get Product error: "+str(e))
             return None
-
-    def add_to_cart(self,user_id,product_name,quality,date_order):
-        try:
-            if self.cur == None:
-                self.conn, self.cur = self.connect_db()
-            self.cur.execute('Insert Into cart (user_id,product_name,quality,date_order) values(%s,%s,%s,%s)',(user_id,product_name,quality,date_order,))
-            self.conn.commit()
-            self.cur.close()
-            return True
-        except Exception as e:
-            print("Get Product error: "+str(e))
-            return False
     
     def get_singleproduct(self,product_name):
         try:
@@ -141,4 +129,20 @@ class DataProductAccess:
             return single_product
         except Exception as e:
             print("Get Product error: "+str(e))
-            return None       
+            return None
+
+    def insert_order(self,user_id,fullname,email,address,phone,order_date,delivery_date,order_number,product_list,total):
+        try:
+            if self.cur == None:
+                self.conn, self.cur = self.connect_db()
+            self.cur.execute('Insert Into cart (user_id,fullname,email,address,phone,order_date,delivery_date,order_number,product_list,total) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',(user_id,fullname,email,address,phone,order_date,delivery_date,order_number,product_list,total,))
+            self.conn.commit()
+            self.cur.close()
+            return True
+        except Exception as e:
+            print("Insert order error: "+str(e))
+            return False
+
+
+
+    
