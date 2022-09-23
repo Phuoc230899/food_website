@@ -146,12 +146,12 @@
                                     {%for prod in cart%}
                                     <div class="row">
                                         <div class="col-sm-2 col-xs-3 less-padding">
-                                            <img src={{prod["image_path"]}} width="100%">
+                                            <img src={{prod["image_link"]}} width="100%">
                                         </div>
                                         <div class="col-sm-8 col-xs-9">
                                             <span class="text-gray-1">{{prod["product_name"]}}</span>
-                                            <p class="text-gray-2">1 x {{prod["price"]}}</p>
-                                            {% set _ = total.append(total.pop() + prod["price"]|int) %}
+                                            <p class="text-gray-2">{{prod["quantity"]}} x {{prod["price"]}}</p>
+                                            {% set _ = total.append(total.pop() + prod["price"]|int*prod["quantity"]|int) %}
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -159,7 +159,7 @@
 
                                     <div class="row">
 
-                                        <div class="col-sm-6 col-xs-6 less-padding"><h4><small>Total</small><br><span>{{total[0]}}.000 VND</span></h4></div>
+                                        <div class="col-sm-6 col-xs-6 less-padding"><h4><small>Total</small><br><span>{{total[0]}} VND</span></h4></div>
                                         <div class="col-sm-6 col-xs-6 less-padding">
                                             <a href="./shoppingcart" class="button-green-top-nav btn pull-right btn-block text-oswald text-uppercase">View Cart</a>
                                         </div>
@@ -243,7 +243,7 @@
 
                         <div class="row">
                             <div class="col-xs-6">Subtotal</div>
-                            <div class="col-xs-6"><p class="text-right"><strong>{{total[0]}}.000 VND</strong></p></div>
+                            <div class="col-xs-6"><p class="text-right"><strong>{{total[0]}} VND</strong></p></div>
                         </div>
 
                         <div class="row">
@@ -254,7 +254,7 @@
                         <hr/>
 
                         <div class="pull-left">Total</div>
-                        <div class="pull-right"><strong>{{total[0]+30}}.000 VND</strong></div>
+                        <div class="pull-right"><strong>{{total[0]+30000}} VND</strong></div>
                     </div>
                 </div>
             </div>

@@ -3,15 +3,13 @@ from app.db_access import DataProductAccess
 
 index_module = Blueprint("index_module", __name__)
 
-global cart_list 
-cart_list = []
 
 @index_module.route("/")
 @index_module.route("/homepage")
 def index():
     connect_db = DataProductAccess()
     per_page = 6
-    product_list = connect_db.get_product(per_page)
+    
     # cart = []       
     # try:
     #     for prod in session['cart_list']:
@@ -19,5 +17,9 @@ def index():
     # except:
     #     cart = []
     # print(cart)
-    session['cart_list'] = []
-    return render_template("Pages/index.html",product_list = product_list)#,cart=cart,quantity=str(len(cart))
+    current_page = request.args.get('page',1)
+    products = connect_db.count_product()
+    page_limit = round(products/per_page)
+    product_list = connect_db.get_product(per_page,int(current_page))
+    cart_list = session['cart_list']
+    return render_template("Pages/index.html",product_list = product_list, page_limit=page_limit,cart_list=cart_list)#,cart=cart,quantity=str(len(cart))

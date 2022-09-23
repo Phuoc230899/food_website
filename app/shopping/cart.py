@@ -6,15 +6,17 @@ import random
 import string
 import json
 
+
 cart_module = Blueprint("cart_module", __name__)
+
 
 @cart_module.route("/addcart",methods=['GET','POST','PUT'])
 def addcart():
     if request.method == "PUT":
         product_name = request.json['product_name']
-        quantity = request.json['quantity']
+        quantity = int(request.json['quantity'])
         image_link = request.json['image_link']
-        price = request.json['price']
+        price = int(request.json['price'])
         # quantity = request.json['quantity']
         # c = {'product_name':product_name,'quantity': quantity}
         # print(product_name)
@@ -27,7 +29,6 @@ def addcart():
         else:
             session['cart_list'] = [i for i in session['cart_list'] if not (i['product_name'] == c['product_name'])]
             session['cart_list'].append(c)
-
     if request.method == "POST":       
         return redirect(url_for("cart_module.cart"))
     return redirect(url_for("cart_module.cart"))
@@ -43,10 +44,12 @@ def cart():
                 session['cart_list'][i]['quantity'] = product_quantity[i]
         print(session['cart_list'])
         return redirect(url_for("cart_module.checkout1"))
-    if session["user_id"][0]:
-        pass
-    else:
+    try:
+        if session["user_id"][0]:
+            pass
+    except:
         return redirect(url_for("user_module.login"))
+    print(session['cart_list'])
     cart = []       
     try:
         for prod in session['cart_list']:
@@ -89,10 +92,11 @@ def checkout1():
         for i in session['cart_list']:
             product_list = product_list+str(i["quantity"])+" x "+str(i["product_name"])+"\n"
             total = total + int(i["quantity"])*int(i["price"])
-        if connect_db.insert_order(user_id,fullname,email,address,phone,order_date,delivery_date,order_number,product_list,total):
-            return render_template("pages/thankyou.html",email=email,fullname=fullname,address=address,phone=phone,order_date=order_date,delivery_date=delivery_date,order_number=order_number,cart=cart)
-        else:
-            flash("Error Connect!!!")
+        if email != None and phone != None and fullname != None:
+            if connect_db.insert_order(user_id,fullname,email,address,phone,order_date,delivery_date,order_number,product_list,total):
+                return render_template("pages/thankyou.html",email=email,fullname=fullname,address=address,phone=phone,order_date=order_date,delivery_date=delivery_date,order_number=order_number,cart=cart)
+            else:
+                flash("Error Connect!!!")
     return render_template("pages/checkout1.html",cart=cart,quantity=str(len(cart)))
 
 # @cart_module.route("/checkout2")

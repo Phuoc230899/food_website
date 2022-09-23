@@ -247,12 +247,31 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="product-detail-tag-container col-md-12 text-center">
-            <button class="btn outline-white-button text-center">Load More</button>
-        </div>
+    <div class="row" id="navigation">
+        <ul class="pagination">
+            <div class="product-detail-tag-container col-md-12 text-center">
+                <button onclick="getNumProduct('{{num_current}}')" class="btn outline-white-button text-center">Load More</button>
+            </div>
+        </ul>
     </div>
+    <style type="text/css">
+        #navigation {
+            text-align: center;
+        }
+        #navigation ul {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            /* For IE, the outcast */
+            zoom:1;
+            *display: inline;
+        }
 
+        #navigation li {
+            float: left;
+            padding: 2px 5px;
+        }
+    </style>
     <div class="row">
         <div class="col-md-2 col-md-offset-1">
             <p class="text-center">
@@ -450,6 +469,21 @@
     {
         var count = $('div[id^=product]').length
         return count
+    }
+</script>
+
+<script>
+    function getNumProduct(value)
+    {
+        fetch('/homepage',{
+            method: 'put',
+            body: JSON.stringify({
+                'num' : value+1
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
     }
 </script>
 

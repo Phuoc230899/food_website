@@ -1,3 +1,4 @@
+
 # Statement for enabling the development environment
 DEBUG = True
 
@@ -34,3 +35,4 @@ MAIL_USERNAME = "hoangvanphuocrac@gmail.com"
 MAIL_PASSWORD = "phuoc230899"
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
+

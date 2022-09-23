@@ -109,11 +109,12 @@ class DataProductAccess:
             print("Unable to connect %s" % str(e))
             return None
 
-    def get_product(self,limit_product):
+    def get_product(self,limit_product,page=1):
         try:
             if self.cur == None:
                 self.conn, self.cur = self.connect_db()
-            self.cur.execute('Select * From products Limit %s',(limit_product,))
+            offset = (page-1)*limit_product
+            self.cur.execute('Select * From products Limit %s Offset %s',(limit_product,offset,))
             list_product = self.cur.fetchall()
             return list_product
         except Exception as e:
@@ -142,6 +143,17 @@ class DataProductAccess:
         except Exception as e:
             print("Insert order error: "+str(e))
             return False
+
+    def count_product(self):
+        try:
+            if self.cur == None:
+                self.conn, self.cur = self.connect_db()
+            self.cur.execute('Select Count(*) From products')
+            quantity = self.cur.fetchone()
+            return quantity[0]
+        except Exception as e:
+            print("Insert order error: "+str(e))
+            return None
 
 
 
