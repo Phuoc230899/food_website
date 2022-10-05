@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <meta name="description" content="Kimi is a curated foods and beverages artisans.">
-    <meta name="author" content="Johnson Chandra, Allysa Prabandani, Philipus Herlambang, Maya Editorial">
+    <meta name="author" content="Philip Herlambang">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
 
@@ -39,7 +40,7 @@
     <link rel="icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/favicon.ico">
     <link rel="apple-touch-icon" href="https://s3-ap-southeast-1.amazonaws.com/kimistatic/images/apple-touch-icon.png">
 
-    <title>Shopping Cart</title>
+    <title>Sucicakes</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
@@ -172,91 +173,132 @@
     </div>
 </nav>
 
+<div class="container kimi-container">
+    <ol class="breadcrumb hidden-xs">
+        <li>Home</li>
+        <li><a href="#">Sucicakes</a></li>
+    </ol>
+</div>
 
 
 
-<div class="container">
-
-    <div class="kimi-container">
-        <!--breadcrumb start-->
-        <ol class="breadcrumb hidden-xs">
-            <li><a href="index.html">Home</a></li>
-            <li>Cart</li>
-            <li>Customer Information</li>
-            <li>Shipping Mehtod</li>
-            <li>Payment Method</li>
-        </ol>
-
-
-        <div class="row">
-            <div class="col-md-8">
-                <form action="/shoppingcart" method="post">
-                    <div class="box-bg-white col-md-12">
-                        <h3 class="section-title">Shopping Cart</h3>
-                        {% for product in cart%}                       
-                            <div class="row">
-                                <div class="col-md-2 col-xs-6 less-padding-right">
-                                    <img src={{product["image_link"]}} width="100%">
-                                </div>
-                                <div class="col-md-5 col-xs-12">
-                                    <span id="product_name" name = "product_name">{{product["product_name"]}}</span><br/>
-                                    <!-- <p class="text-gray-3 text-thin">Sucicakes</p> -->
-                                    <p class="section-title">{{product["price"]}} VND</p>
-                                    <a class="btn btn-default outline-default-button outline-small-default-button" href="./delete/{{product["product_name"]}}">Remove</a>
-                                </div>
-
-                                <div class="col-md-3 col-xs-7">
-                                    <p>Quantity</p>
-                                    <!-- <form class="form-inline"> -->
-
-                                        <div class="form-group pull-left">
-                                            <input type="number" class="form-control number-input" id="product_quantity" name="product_quantity" placeholder="1" max="99" min="0" value="{{product["quantity"]}}" style="width: 60px;">
-                                        </div>
-
-                                    <!-- </form> -->
-                                </div>
-                                <div class="col-md-2 col-xs-5">
-                                    <p class="text-right">Subtotal</p>
-                                    <p class="text-right section-title" id="subtotal" name="subtotal">{{product["price"]|int*product["quantity"]|int}} VND</p>
-                                </div>
-                            </div>
-                            
-                            <hr>
-                            
-                        
-                        
-                        {%endfor%}
+<div class="container channel-cover">
+    <img src="{{ url_for('static',filename='images/coverSucicakes.jpg')}}" class="cover-image">
+    <div class="hidden-xs channel-info">
+        <h1 class="text-red">Sucicakes</h1>
+        <img src="{{ url_for('static',filename='images/premium.png')}}" class="pull-left">
+        <h4 style="margin-left: 10px; float: left;">Premium Seller</h4>
+        <div class="clearfix maya-small-padding"></div>
+        <img src="{{ url_for('static',filename='images/halal35.png')}}">
+    </div>
+</div><!-- /.container -->
 
 
+
+<div class="container visible-xs" style="padding-top: 15px; background: white; padding-bottom: 10px; border-bottom: 1px solid #E7EAEA;">
+    <div class="row">
+        <div class="col-xs-1" style="padding-left: 5px;">
+            <img src="{{ url_for('static',filename='images/premium_badge.png')}}" style="margin-top: 10px;">
+        </div>
+        <div class="col-xs-3 less-padding-left">
+            <img src="{{ url_for('static',filename='images/sucicakes_logo.png')}}" width="100%">
+        </div>
+        <div class="col-xs-8 less-padding-left">
+            <p class="roboto-14 text-bold less-margin less-padding" style="margin-top: 10px;">Sucicakes</p>
+            <p class="roboto-14 less-margin less-padding">Kebon Jeruk</p>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container" style="background: white; padding-bottom: 50px; padding-top: 20px;">
+    <div class="row">
+        <div class="col-md-2 hidden-xs">
+            <p class="text-center"><img src="{{ url_for('static',filename='images/sucicakes_logo.png')}}" width="100"></p>
+        </div>
+        <div class="col-md-3">
+            <p>Page: <a href="#" class="text-secondary">backtokimi.com/sucicakes</a></p>
+            <p>Coverage: Jabodetabek</p>
+            <p>Location: Kebon Jeruk, Jakarta Barat</p>
+        </div>
+        <div class="col-md-4">
+            <p>Last Logged in: Wed 23 Agustus 2017</p>
+            <p>Join: April 2017</p>
+            <p>Favourites: 290</p>
+        </div>
+        <div class="col-md-3">
+            <button class="button-gray-2 btn btn-block">Make Favourite</button>
+            <div class="clearfix" style="margin-bottom: 15px;"></div>
+            <a href="channelDashboard.html" class="button-gray-2 btn btn-block">Go to My Dashboard</a>
+        </div>
+    </div>
+
+    <div class="row maya-well-padding">
+        <div class="col-md-8 col-md-offset-2">
+            <p class="text-center helvetica-18">Sucicakes adalah home industry makanan dan kue baik modern maupun tradisional.  Didirikan oleh Aurelia Suci di tahun 2012, sekarang Sucicakes sudah melayani ratusan customer. Sucicakes sangat menjaga kualitas dan kebersihan bahan makanan.</p>
+        </div>
+    </div>
+
+    <div class="row maya-well-padding">
+        <div class="col-sm-6 col-md-4">
+            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
+                <img src="{{ url_for('static',filename='images/sosisSolo.jpg')}}" alt="sosis solo">
+            </a>
+            <div class="caption box">
+                <h3>Sosis Solo Sucicakes</h3>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-6">
+                        <p class="default-userProductList-CardList-price">Rp 4.500 / pcs</p>
+                        <span class="min-order">10 pcs min order</span>
                     </div>
 
-                    <button  class="btn btn-default pull-right button-black">Continue to checkout</button>
-                    <div class="clearfix maya-small-padding"></div>
-                </form>
-                
+                    <div class="col-sm-4 col-xs-6">
+                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <div class="col-md-4">
-                <div class="box-bg-white">
-                    <div class="clearfix maya-small-padding"></div>
-                    <h3 class="text-right text-oswald">Need Help ? </h3>
-                    <p class="text-right text-gray-3 text-medium text-thin">Find any troubles? We will respond. Call or write question by email</p>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="text-gray-2 text-thin">Everyday<br>from 9.00 - 18.00</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="text-right">+62 21 567898765<br><a class="text-black text-underline" href="mailto: info@backtokimi.com">info@backtokimi.com</a></p>
-                        </div>
+        <div class="col-sm-6 col-md-4">
+            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
+                <img src="{{ url_for('static',filename='images/nasi_bakar_ayam_woku_2.jpg')}}" alt="sosis solo">
+            </a>
+            <div class="caption box">
+                <h3>Nasi Bakar Ayam Woku</h3>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-6">
+                        <p class="default-userProductList-CardList-price">Rp 23.000 / pcs</p>
+                        <span class="min-order">5 pcs min order</span>
                     </div>
-                    <div class="clearfix maya-small-padding"></div>
+
+                    <div class="col-sm-4 col-xs-6">
+                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
+                <img src="{{ url_for('static',filename='images/risotto_square.jpg')}}" alt="sosis solo">
+            </a>
+            <div class="caption box">
+                <h3>Lemon Risotto</h3>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-6">
+                        <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
+                        <span class="min-order">10 pcs min order</span>
+                    </div>
+
+                    <div class="col-sm-4 col-xs-6">
+                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-</div><!-- /.container -->
+</div>
 
 <!--include footer-->
 <div class="include-footer"></div>

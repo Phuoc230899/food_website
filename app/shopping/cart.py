@@ -94,6 +94,7 @@ def checkout1():
             total = total + int(i["quantity"])*int(i["price"])
         if email != None and phone != None and fullname != None:
             if connect_db.insert_order(user_id,fullname,email,address,phone,order_date,delivery_date,order_number,product_list,total):
+                session['cart_list'] = []
                 return render_template("pages/thankyou.html",email=email,fullname=fullname,address=address,phone=phone,order_date=order_date,delivery_date=delivery_date,order_number=order_number,cart=cart)
             else:
                 flash("Error Connect!!!")
