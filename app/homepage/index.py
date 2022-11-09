@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from flask import Blueprint, render_template,session,request,redirect,url_for
 from app.db_access import DataProductAccess
 import math
@@ -26,8 +25,13 @@ def index():
 
 @index_module.route("/channelDetail")
 def channeldetail():
-    return render_template("pages/channelDetail.html",num_of_product=len(session['cart_list']))
+    connect_db = DataProductAccess()
+    chef = request.args.get('chef')
+    print(chef)
+    product = connect_db.get_product_by_chef(chef)
+    return render_template("pages/channelDetail.html",cart_list=session['cart_list'],num_of_product=len(session['cart_list']),products=product,chef=chef)
 
 @index_module.route("/articles")
 def articles():
     return render_template("pages/articles.html")
+

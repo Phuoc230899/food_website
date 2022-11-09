@@ -36,3 +36,4 @@ MAIL_PASSWORD = "phuoc230899"
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
 
+UPLOAD_FOLDER = r'D:\food_website\app\static\images'

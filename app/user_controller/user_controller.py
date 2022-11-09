@@ -15,7 +15,11 @@ def login():
         check = db.check_login(email,password)
         if check == True:
             session['user_id'] = db.get_user_id(email)
-            return redirect(url_for("cart_module.cart"))
+            session['role'] = db.get_role(email)
+            if len(session['cart_list']) != 0:
+                return redirect(url_for("cart_module.cart"))
+            else:
+                return redirect(url_for("index_module.index"))
         else:
             error = "Invalid Email or Password"
     return render_template("Pages/login.html",error= error)
@@ -39,3 +43,9 @@ def register():
         else:
             error = "Email Does Exist!"
     return render_template("Pages/register.html",error= error)
+
+@user_module.route("/logout")
+def logout():
+    session['user_id'] = []
+    session['role']=[]
+    return redirect(url_for("index_module.index"))

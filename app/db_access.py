@@ -59,13 +59,13 @@ class DataAccountAccess:
             print("Check Register error: "+str(e))
             return False
 
-    def create_account(self,username,email,password):
+    def create_account(self,username,email,password,role="user"):
         try:
             if self.cur == None:
                 self.conn, self.cur = self.connect_db()
             self.cur.execute(
-                'Insert Into accounts(username,email,password) Values(%s,%s,%s)',
-                (username,email,password)
+                'Insert Into accounts(username,email,password,role) Values(%s,%s,%s,%s)',
+                (username,email,password,role)
             )
             self.conn.commit()
             self.cur.close()
@@ -86,6 +86,20 @@ class DataAccountAccess:
             return user_id
         except Exception as e:
             print("Create Account error: "+str(e))
+            return None
+
+    def get_role(self,email):
+        try:
+            if self.cur == None:
+                self.conn, self.cur = self.connect_db()
+            self.cur.execute(
+                'Select role from accounts Where email=%s',
+                (email,)
+            )
+            role = self.cur.fetchone()
+            return role
+        except Exception as e:
+            print("Get role error: "+str(e))
             return None
 
 class DataProductAccess:
@@ -132,6 +146,17 @@ class DataProductAccess:
             print("Get Product error: "+str(e))
             return None
 
+    def get_product_by_chef(self,chef):
+        try:
+            if self.cur == None:
+                self.conn, self.cur = self.connect_db()
+            self.cur.execute('Select * From products Where chef=%s',(chef,))
+            list_product = self.cur.fetchall()
+            return list_product
+        except Exception as e:
+            print("Get Product error: "+str(e))
+            return None
+
     def insert_order(self,user_id,fullname,email,address,phone,order_date,delivery_date,order_number,product_list,total):
         try:
             if self.cur == None:
@@ -142,6 +167,18 @@ class DataProductAccess:
             return True
         except Exception as e:
             print("Insert order error: "+str(e))
+            return False
+
+    def insert_product(self,product_name,price,time_order,type_food,image,chef,story,story2,story3):
+        try:
+            if self.cur == None:
+                self.conn, self.cur = self.connect_db()
+            self.cur.execute('Insert Into products (product_name,price,time_order,type_food,image,chef,story,story2,story3) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)',(product_name,price,time_order,type_food,image,chef,story,story2,story3))
+            self.conn.commit()
+            self.cur.close()
+            return True
+        except Exception as e:
+            print("Insert products error: "+str(e))
             return False
 
     def count_product(self):

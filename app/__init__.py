@@ -28,6 +28,10 @@ from app.product.product_controller import product_module
 
 app.register_blueprint(product_module)
 
+from app.admin.admin_controller import admin_module
+
+app.register_blueprint(admin_module)
+
 @app.before_request
 def make_session_permanent():
     session.permanent = True
@@ -37,3 +41,4 @@ def make_session_permanent():
 @app.before_first_request
 def make_session():
     session['cart_list'] = []
+    session['role'] = []

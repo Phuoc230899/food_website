@@ -176,7 +176,7 @@
 <div class="container kimi-container">
     <ol class="breadcrumb hidden-xs">
         <li>Home</li>
-        <li><a href="#">Sucicakes</a></li>
+        <li><a href="#">{{chef}}</a></li>
     </ol>
 </div>
 
@@ -185,7 +185,7 @@
 <div class="container channel-cover">
     <img src="{{ url_for('static',filename='images/coverSucicakes.jpg')}}" class="cover-image">
     <div class="hidden-xs channel-info">
-        <h1 class="text-red">Sucicakes</h1>
+        <h1 class="text-red">{{chef}}</h1>
         <img src="{{ url_for('static',filename='images/premium.png')}}" class="pull-left">
         <h4 style="margin-left: 10px; float: left;">Premium Seller</h4>
         <div class="clearfix maya-small-padding"></div>
@@ -204,7 +204,7 @@
             <img src="{{ url_for('static',filename='images/sucicakes_logo.png')}}" width="100%">
         </div>
         <div class="col-xs-8 less-padding-left">
-            <p class="roboto-14 text-bold less-margin less-padding" style="margin-top: 10px;">Sucicakes</p>
+            <p class="roboto-14 text-bold less-margin less-padding" style="margin-top: 10px;">{{chef}}</p>
             <p class="roboto-14 less-margin less-padding">Kebon Jeruk</p>
         </div>
     </div>
@@ -218,19 +218,19 @@
             <p class="text-center"><img src="{{ url_for('static',filename='images/sucicakes_logo.png')}}" width="100"></p>
         </div>
         <div class="col-md-3">
-            <p>Page: <a href="#" class="text-secondary">backtokimi.com/sucicakes</a></p>
-            <p>Coverage: Jabodetabek</p>
+            <p>Page: <a href="./" class="text-secondary">namnguyen.com.vn</a></p>
+            <p>Country: Vietnamese</p>
             <p>Location: Kebon Jeruk, Jakarta Barat</p>
         </div>
         <div class="col-md-4">
-            <p>Last Logged in: Wed 23 Agustus 2017</p>
+            <p>Date of birth: Wed 23 Agustus 2017</p>
             <p>Join: April 2017</p>
             <p>Favourites: 290</p>
         </div>
         <div class="col-md-3">
             <button class="button-gray-2 btn btn-block">Make Favourite</button>
             <div class="clearfix" style="margin-bottom: 15px;"></div>
-            <a href="channelDashboard.html" class="button-gray-2 btn btn-block">Go to My Dashboard</a>
+            <a href="./dashboard/{{chef}}" class="button-gray-2 btn btn-block">Go to My Dashboard</a>
         </div>
     </div>
 
@@ -241,62 +241,33 @@
     </div>
 
     <div class="row maya-well-padding">
-        <div class="col-sm-6 col-md-4">
-            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                <img src="{{ url_for('static',filename='images/sosisSolo.jpg')}}" alt="sosis solo">
-            </a>
-            <div class="caption box">
-                <h3>Sosis Solo Sucicakes</h3>
-                <div class="row">
-                    <div class="col-sm-8 col-xs-6">
-                        <p class="default-userProductList-CardList-price">Rp 4.500 / pcs</p>
-                        <span class="min-order">10 pcs min order</span>
-                    </div>
+        {%for product in products%}
+        <!-- <form method="post" action="{{url_for('cart_module.addcart',product_name=product[1])}}">              -->
+            <div class="col-sm-6 col-md-4" data-behavior="sample_code">
+                <a href="./productDetail/{{product[1]}}" class="thumbnail_item thumbnail less-padding less-margin">
+                    <img src={{product[5]}} >
+                </a>
+                <div class="caption box">
+                    <h3 name = 'product_name'><span  name="product_name">{{product[1]}}</span></h3>
+                    <div class="row">
+                        <div class="col-sm-8 col-xs-6">
+                            <p class="default-userProductList-CardList-price">Rp {{product[2]}}/ pcs</p>
+                            <span class="min-order">{{product[3]}} pcs min order</span>
+                        </div>
+                        {% set product_name = product[1] %}
+                        {% set product_price = product[2] %}
+                        {% set image_link = product[5] %}
+                        <div class="col-sm-4 col-xs-6">
 
-                    <div class="col-sm-4 col-xs-6">
-                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
+                            <!-- <a href="{{url_for('cart_module.addcart',product_name=product[1])}}" class="btn default-userProductList-CardList-button pull-right" >Add to Cart</a> -->
+                            
+                            <button onclick="myFunction('{{product[5]}}', '{{product[1]}}', '{{product[2]}}')" class="btn default-userProductList-CardList-button pull-right">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-sm-6 col-md-4">
-            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                <img src="{{ url_for('static',filename='images/nasi_bakar_ayam_woku_2.jpg')}}" alt="sosis solo">
-            </a>
-            <div class="caption box">
-                <h3>Nasi Bakar Ayam Woku</h3>
-                <div class="row">
-                    <div class="col-sm-8 col-xs-6">
-                        <p class="default-userProductList-CardList-price">Rp 23.000 / pcs</p>
-                        <span class="min-order">5 pcs min order</span>
-                    </div>
-
-                    <div class="col-sm-4 col-xs-6">
-                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6 col-md-4">
-            <a href="productDetail.html" class="thumbnail_item thumbnail less-padding less-margin">
-                <img src="{{ url_for('static',filename='images/risotto_square.jpg')}}" alt="sosis solo">
-            </a>
-            <div class="caption box">
-                <h3>Lemon Risotto</h3>
-                <div class="row">
-                    <div class="col-sm-8 col-xs-6">
-                        <p class="default-userProductList-CardList-price">Rp 45.000 / pcs</p>
-                        <span class="min-order">10 pcs min order</span>
-                    </div>
-
-                    <div class="col-sm-4 col-xs-6">
-                        <button onclick="location.href='shoppingCart.html'" class="btn default-userProductList-CardList-button pull-right" role="button">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- </form> -->
+    {%endfor%}
     </div>
 </div>
 
